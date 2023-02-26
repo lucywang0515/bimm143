@@ -1,0 +1,42 @@
+---
+title: "Class 11"
+author: "Lucy Wang"
+format: html
+---
+
+# Section 1. Proportion og G/G in a population (MXL)
+
+Downloaded a CSV file from Ensemble <https://useast.ensembl.org/Homo_sapiens/Variation/Sample?db=core;r=17:39675097-40115098;v=rs8067378;vdb=variation;vf=105535077#373531_tablePanel>
+
+
+```{r}
+mxl <- read.csv("asthma.csv")
+head(mxl)
+```
+
+```{r}
+table(mxl$Genotype..forward.strand.)
+```
+
+```{r}
+table(mxl$Genotype..forward.strand.) / nrow(mxl)
+```
+
+Read GBR asthma file and compare G/G proportion to MXL
+
+```{r}
+gbr <- read.csv("British_asthma.csv")
+```
+
+```{r}
+round(table(gbr$Genotype..forward.strand.) / nrow(gbr) * 100, 2)
+```
+
+This variant that is associated with childhood asthma is more frequent in the GBR population than in the MXL population
+
+Let's now dig into this further (why more frequent).
+
+
+
+
+

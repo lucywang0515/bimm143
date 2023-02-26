@@ -1,0 +1,68 @@
+---
+title: "class04 ex"
+author: "LW"
+format: html
+---
+
+```{r}
+ggplot(data = cdc) +
+      (aes(x=height, y=weight) ) +
+      (geom_point())
+```
+
+```{r}
+cor(cdc$height, cdc$weight)
+```
+
+```{r}
+hist(cdc$height)
+```
+
+```{r}
+height_m <- cdc$height * 0.0254
+weight_kg <- cdc$weight * 0.454
+```
+
+```{r}
+bmi <- (weight_kg)/(height_m^2)
+plot(cdc$height, bmi)
+```
+
+```{r}
+cor(cdc$height, bmi)
+```
+
+```{r}
+obese <- sum(bmi >= 30)
+obese
+```
+
+```{r}
+ggplot(data = cdc[1:100, 5:6]) +
+  aes(x=height, y=weight) +
+  geom_point()
+```
+
+```{r}
+#the gender column
+g <- cdc$gender
+#get only bmi>=30 folks
+bmi_g <- g[bmi >= 30]
+#use table() to count
+table(bmi_g)
+```
+
+```{r}
+ggplot(mtcars) + aes(x=mpg, y=disp) + geom_point()
+```
+
+```{r}
+ggplot(mtcars, aes(mpg, disp)) + geom_point()
+```
+
+```{r}
+V <- c(NA, 0, 0, 0, NA, NA, 777)
+sum(is.na(V))
+mean(na.omit[V])
+```
+

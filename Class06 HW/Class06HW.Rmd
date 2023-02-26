@@ -1,0 +1,86 @@
+---
+title: "Class06 HW"
+author: "Lucy Wang"
+date: "2023-01-30"
+output: html_document
+---
+
+---
+title: "Class06 HW"
+author: "Lucy Wang"
+format: html
+---
+
+```{r}
+# (A. Can you improve this analysis code?
+df <- data.frame(a=1:10, b=seq(200,400,length=10),c=11:20,d=NA)
+df$a <- (df$a - min(df$a)) / (max(df$a) - min(df$a))
+df$b <- (df$b - min(df$a)) / (max(df$b) - min(df$b))
+df$c <- (df$c - min(df$c)) / (max(df$c) - min(df$c))
+df$d <- (df$d - min(df$d)) / (max(df$a) - min(df$d))
+```
+
+```{r}
+#Improved code A)
+#Naming all the input as "x"
+D <- function(x){
+  #Doing the exact same calculation thing as previous code does
+  (x - min(x)) / (max(x) - min(x))
+}
+```
+
+To apply the `D` function, simply put `D(data)` and press return. Or use the `apply()` function to call `D` . For example, one can do:
+
+`apply(data, 1, D)`
+
+
+
+```{r}
+# Can you improve this analysis code?
+library(bio3d)
+s1 <- read.pdb("4AKE")  # kinase with drug
+s2 <- read.pdb("1AKE")  # kinase no drug
+s3 <- read.pdb("1E4Y")  # kinase with drug
+s1.chainA <- trim.pdb(s1, chain="A", elety="CA")
+s2.chainA <- trim.pdb(s2, chain="A", elety="CA")
+s3.chainA <- trim.pdb(s1, chain="A", elety="CA")
+s1.b <- s1.chainA$atom$b
+s2.b <- s2.chainA$atom$b
+s3.b <- s3.chainA$atom$b
+plotb3(s1.b, sse=s1.chainA, typ="l", ylab="Bfactor")
+plotb3(s2.b, sse=s2.chainA, typ="l", ylab="Bfactor")
+plotb3(s3.b, sse=s3.chainA, typ="l", ylab="Bfactor")
+```
+**Q1. What type of object is returned from the read.pdb() function?**   
+It returns a list of class "pdf"(from `?read.pdb`).
+
+**Q2. What does the trim.pdb() function do?**   
+It produces a new smaller PDB object, containing a subset of atoms, from a given larger PDB object (from `?trim.pdb`).
+
+**Q3. What input parameter would turn off the marginal black and grey rectangles in the plots and what do they represent in this case?**   
+I can set `top = FALSE` and `bot = FALSE` within `plotb3()` to turn the top and bottom rectangles off. They represent the optional secondary structure of the given data (from `?plotb3`).
+
+```{r}
+library(bio3d)
+s1 <- read.pdb("4AKE")  # kinase with drug
+s1.chainA <- trim.pdb(s1, chain="A", elety="CA")
+s1.b <- s1.chainA$atom$b
+plotb3(s1.b, sse=s1.chainA, typ="l", top = FALSE, bot = FALSE, ylab="Bfactor")
+```
+
+**Q4. What would be a better plot to compare across the different proteins?**
+Bar chart can be a better choice since it is discontinuous and allows to see seperate protein structures.
+
+**Q5. Which proteins are more similar to each other in their B-factor trends. How could you quantify this?**.  
+```{r}
+hc <- hclust( dist( rbind(s1.b, s2.b, s3.b) ) )
+plot(hc)
+```
+I use `rbind()` to combine a sequence of data by row, then use `dist()` to get a distance matrix computed from the data. In the end I use the     `hclust()` to compute the dissimilarity structure produced by `dist()`. After these I can finally plot the data.
+
+```{r}
+#Improved Code for Above
+```
+
+
+
