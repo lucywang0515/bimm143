@@ -1,3 +1,3 @@
 # Bimm143
-This repo is for my UCSD BIMM143 bioinformatics class.
+REPO for my BIMM143 bioinformatics class at UCSD.
 
